@@ -6,21 +6,28 @@
                
 using namespace std; // Use the standard namespace for simplifying code.
 
-
-
 // Global variables to store game data.
 int size = 3;          // Number of disks (default to 3).
 int moves = 0;         // Counter for the number of moves.
 int* a = nullptr;      // Pointer to the first tower array.
 int* b = nullptr;      // Pointer to the second tower array.
 int* c = nullptr;      // Pointer to the third tower array.
-int NextIndexA = 3;    // Index to track the next available position in tower A.s
+int NextIndexA = 3;    // Index to track the next available position in tower A.
 int NextIndexB = 0;    // Index to track the next available position in tower B.
 int NextIndexC = 0;    // Index to track the next available position in tower C.
-string name;           //Player's name
-void ShowMenu ();
+string name;           //Player's name 
 
-// Function to display the current state of the towers.
+void Display();// Function to display the current state of the towers.
+int Swap(char source, char dest);// Function to perform a disk Swap between towers.
+void ResetGame();// Function to reset the game state.
+bool IsGameWin();// Function to check if the game is won (all disks are on tower C).
+void PlayGame();// Function to play the Tower of Hanoi game.
+void NewGame();// Function to start a new game.
+void Instructions ();// Function to display game instructions.
+void ShowMenu();// Function to display the main menu
+
+
+
 void Display()
 {
     cout << "\n---------------Towers Of Hanoi Game--------------\n"; // Display game header.
@@ -200,6 +207,8 @@ bool IsGameWin()
     return true; // All elements in tower C are non-zero, the game is won.
 }
 
+
+
 // Function to play the Tower of Hanoi game.
 void PlayGame()
 {
@@ -215,26 +224,49 @@ void PlayGame()
         Display(); // Display the current state of the towers.
         cout << "\nTotal Moves:\t" << moves;
         cout << "\nMinimum number of moves:  " << pow(2, size) - 1;
-        cout << "\nSelect the Source tower (A,B,C):\t";
+        cout << "\nSelect the Source tower (A, B, C, or Q to quit):\t";
         cin >> source;
         
-        while (source != 'A' && source != 'B' && source != 'C')
+        if (source == 'Q')
         {
-            cout << "invalid input";
-            cout << "\nSelect the Source tower (A,B,C):\t";
-            cin >> source; // Get the source tower from the user.
+            cout << "\nYou have quit the game.\n";
+            break; // Quit the game.
         }
 
-        cout << "Select the Destination tower (A,B,C):\t";
+        while (source != 'A' && source != 'B' && source != 'C' && source != 'Q')
+        {
+            cout << "Invalid input";
+            cout << "\nSelect the Source tower (A, B, C, or Q to quit):\t";
+            cin >> source; // Get the source tower from the user.
+        }
+         if (source == 'Q')
+        {
+            cout << "\nYou have quit the game.\n";
+            break; // Quit the game.
+        }
+
+        cout << "Select the Destination tower (A, B, C, or Q to quit):\t";
         cin >> dest;
 
-        while (source == dest || (dest != 'A' && dest != 'B' && dest != 'C'))
+        if (dest == 'Q')
         {
-            cout << "invalid input";
-            cout << "\nSelect the Destination tower(A,B,C):\t";
+            cout << "\nYou have quit the game.\n";
+            break; // Quit the game.
+        }
+
+        while (source == dest || (dest != 'A' && dest != 'B' && dest != 'C' && dest != 'Q'))
+        {
+            cout << "Invalid input";
+            cout << "\nSelect the Destination tower (A, B, C, or Q to quit):\t";
             cin >> dest; // Get the destination tower from the user.
         }
 
+		if (dest == 'Q')
+        {
+            cout << "\nYou have quit the game.\n";
+            break; // Quit the game.
+        }
+        
         invalidCheck = Swap(source, dest); // Attempt to perform the disk Swap.
 
         if (invalidCheck != 1)
@@ -257,10 +289,18 @@ void PlayGame()
         flag = IsGameWin(); // Check if the game is won.
     }
 
-    system("CLS");
-    Display(); // Display the final state of the towers.
-    cout << "Total Moves:\t" << moves;
-    cout << "\nCongrats! You Solved The Tower of Hanoi Puzzle in " << moves << " moves\n";
+    if (!flag)
+    {
+        cout << "\nYou have ended the game.\n";
+    }
+    else
+    {
+        system("CLS");
+        Display(); // Display the final state of the towers.
+        cout << "Total Moves:\t" << moves;
+        cout << "\nCongrats! You Solved The Tower of Hanoi Puzzle in " << moves << " moves\n";
+    }
+
     system("pause"); // Pause the game before exiting.
 }
 
@@ -308,6 +348,7 @@ void NewGame()
 			cout << "\nGame is Starting Now\n";
             system("pause"); // Pause before starting the game.
             PlayGame(); // Start the Tower of Hanoi game.
+           
         }
         else if (option == 3)
         {
@@ -363,7 +404,8 @@ void Instructions ()
 	cout << "                |              Shift/Caps Lock - To capitalise                                                  |                " << endl;
 	cout << "                |              A, B, C         - Rod names                                                      |                " << endl;
 	cout << "                |              Enter           - To do the next move                                            |                " << endl;
-    cout << "                 -----------------------------------------------------------------------------------------------                 " << endl;
+	cout << "                |              Q               - To quit the game                                               |                " << endl;
+    cout << "                |_______________________________________________________________________________________________|                " << endl;
     
 	
     cout << "Press any key to go back to the menu..."<<endl;
