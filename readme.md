@@ -69,9 +69,3 @@ To play the game, follow these instructions:
 4. Complete the puzzle by moving all disks to rod C in the minimum number of moves.
 
 
-## Members
-
-- IM/2021/004 Hirun Senarathna
-- IM/2021/005 Sachintha Rathnayaka
-- IM/2021/116 Fathima Nuzha
-- IM/2021/117 Lithmi Kihansa
