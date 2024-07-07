@@ -11,7 +11,7 @@ The Towers of Hanoi is a classic puzzle game that involves moving a stack of dis
 - Requirements
 - Installation
 - Usage
-- Members
+
 ## Overview
 
 The Towers of Hanoi game is a puzzle where you have three rods labeled A, B, and C. The goal is to move a stack of disks from rod A to rod C, following these rules:
